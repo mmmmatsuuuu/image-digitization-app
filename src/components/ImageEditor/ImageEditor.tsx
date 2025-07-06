@@ -130,9 +130,9 @@ const ImageEditor = ({ imageSrc, onBack }: ImageEditorProps) => {
     if (renderWidth > 0 && renderHeight > 0) {
       let bitsPerPixel = 0;
       if (gradationMode === 'rgb') {
-        bitsPerPixel = Math.log2(gradationLevels) * 3; // RGB各チャンネル
+        bitsPerPixel = Math.floor(Math.log2(gradationLevels)) * 3; // RGB各チャンネル
       } else if (gradationMode === 'grayscale') {
-        bitsPerPixel = Math.log2(gradationLevels); // グレースケール
+        bitsPerPixel = Math.floor(Math.log2(gradationLevels)); // グレースケール
       } else {
         bitsPerPixel = 24; // デフォルトは24ビット（RGB各8ビット）
       }
