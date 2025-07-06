@@ -154,6 +154,29 @@ const ImageEditor = ({ imageSrc, onBack }: ImageEditorProps) => {
     setResolutionScale(100);
   };
 
+  const handleDownload = () => {
+    const processingCanvas = processingCanvasRef.current;
+    if (processingCanvas) {
+      // const image = imageRef.current;
+      const originalFileName = imageSrc.split('/').pop()?.split('.')[0] || 'image';
+      const timestamp = new Date().toISOString().replace(/[:.-]/g, '');
+      const fileName = `${originalFileName}_edited_${timestamp}.png`;
+
+      processingCanvas.toBlob((blob) => {
+        if (blob) {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = fileName;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }
+      }, 'image/png');
+    }
+  };
+
   return (
     <Box sx={{ p: 2, display: 'flex', flexDirection: 'column', height: '100%' }}>
       <Typography variant="h6" textAlign="center">画像エディタ</Typography>
@@ -204,6 +227,9 @@ const ImageEditor = ({ imageSrc, onBack }: ImageEditorProps) => {
             <Box sx={{ display: 'flex', gap: 1, mt: 1}}>
               <Button fullWidth variant="contained" color="secondary" onClick={handleResetAll}>元に戻す</Button>
               <Button fullWidth variant="outlined" onClick={onBack}>撮り直す</Button>
+            </Box>
+            <Box sx={{ display: 'flex', gap: 1, mt: 1}}>
+              <Button fullWidth variant="contained" onClick={handleDownload}>ダウンロード</Button>
             </Box>
           </Grid>
         </Grid>
