@@ -11,7 +11,7 @@ function App() {
     <Container maxWidth="lg">
       <Box sx={{ my: 4, textAlign: 'center' }}>
         <Typography variant="h4" component="h1" gutterBottom>
-          カメラ画像編集ツール
+          📷 画像のデジタル化体験ツール 📷
         </Typography>
         <Paper elevation={3} sx={{ p: 2, minHeight: { xs: '60vh', md: '70vh' }, display: 'flex', flexDirection: 'column' }}>
           {imageSrc === null ? (
